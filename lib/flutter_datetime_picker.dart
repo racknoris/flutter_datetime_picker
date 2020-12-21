@@ -110,6 +110,8 @@ class DatePicker {
     DateChangedCallback onChanged,
     DateChangedCallback onConfirm,
     DateCancelledCallback onCancel,
+    String confirmButtonText,
+    String cancelButtonText,
     locale: LocaleType.en,
     DateTime currentTime,
     DatePickerTheme theme,
@@ -121,6 +123,8 @@ class DatePicker {
             onChanged: onChanged,
             onConfirm: onConfirm,
             onCancel: onCancel,
+            confirmButtonText: confirmButtonText,
+            cancelButtonText: cancelButtonText,            
             locale: locale,
             theme: theme,
             barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
@@ -161,6 +165,8 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
     this.onChanged,
     this.onConfirm,
     this.onCancel,
+    this.confirmButtonText,
+    this.cancelButtonText,
     theme,
     this.barrierLabel,
     this.locale,
@@ -174,6 +180,8 @@ class _DatePickerRoute<T> extends PopupRoute<T> {
   final DateChangedCallback onChanged;
   final DateChangedCallback onConfirm;
   final DateCancelledCallback onCancel;
+  final String confirmButtonText;
+  final String cancelButtonText;
   final DatePickerTheme theme;
   final LocaleType locale;
   final BasePickerModel pickerModel;
@@ -423,8 +431,8 @@ class _DatePickerState extends State<_DatePickerComponent> {
 
   // Title View
   Widget _renderTitleActionsView(DatePickerTheme theme) {
-    String done = _localeDone();
-    String cancel = _localeCancel();
+    String done = widget.route.confirmButtonText ?? _localeDone();
+    String cancel = widget.route.cancelButtonText ?? _localeCancel();
 
     return Container(
       height: theme.titleHeight,
